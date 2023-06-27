@@ -34,6 +34,7 @@ public class MvcConfig implements WebMvcConfigurer {
                         , "/shop-type/**"
                         , "/upload/**"
                         , "/voucher/**"
+                        ,"/voucher-order/**"
                 )
                 .order(1);
         //Token续命拦截器

@@ -42,4 +42,5 @@ public interface IVoucherOrderService extends IService<VoucherOrder> {
     @NotNull
     @Transactional(rollbackFor = Exception.class)
     void createVoucherOrder(VoucherOrder voucherOrder);
+//    public Result createVoucherOrder(Long voucherId);
 }

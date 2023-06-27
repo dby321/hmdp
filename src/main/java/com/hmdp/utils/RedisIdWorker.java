@@ -41,7 +41,7 @@ public class RedisIdWorker {
         long timestamp = nowSecond - BEGIN_TIMESTAMP;
         //生成序列号
         //生成当前日期 精确到天
-        String today = now.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        String today = now.format(DateTimeFormatter.ofPattern("yyyy:MM:dd"));
         //自增长
         Long count = stringRedisTemplate.opsForValue().increment("icr:" + keyPrefix + ":" + today);
         //拼接并返回
