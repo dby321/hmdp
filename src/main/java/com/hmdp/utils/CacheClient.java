@@ -86,7 +86,7 @@ public class CacheClient {
         //从redis中查询
         String json = stringRedisTemplate.opsForValue().get(key);
         //判断是否存在
-        if (StringUtils.isBlank(json)) {
+        if (StringUtils.isNotBlank(json)) {
             //存在直接返回
             return JSONUtil.toBean(json, type);
         }

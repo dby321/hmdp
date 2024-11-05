@@ -29,6 +29,10 @@ public class ShopTypeServiceImpl extends ServiceImpl<ShopTypeMapper, ShopType> i
     @Resource
     private StringRedisTemplate stringRedisTemplate;
 
+    /**
+     * 缓存使用的典型场景 查询商铺类型列表
+     * @return
+     */
     @Override
     public Result getTypeList() {
         String typeKey= RedisConstants.CACHE_TYPE_KEY;

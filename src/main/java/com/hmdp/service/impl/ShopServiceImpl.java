@@ -63,6 +63,14 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
         return Result.ok(shop);
     }
 
+    /**
+     * 典型案例 删除缓存 Cache Aside
+     * x 低一致性方案：redis内存淘汰
+     * √ 高一致性方案：主动更新，并以超时剔除为兜底方案
+     * 由于操作了数据库和缓存，为了失败可以回滚需要加上事务
+     * @param shop 商店
+     * @return
+     */
     @Override
     @Transactional
     public Result update(Shop shop) {
@@ -70,6 +78,7 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
         if (id == null) {
             return Result.fail("店铺id不能为空");
         }
+// 先更新数据库，再更新缓存 万一出现问题，可以让写缓存加一个过期时间保证线程安全性
         // 1.更新数据库
         updateById(shop);
         // 2.删除缓存
