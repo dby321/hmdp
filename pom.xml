@@ -10,8 +10,8 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.1.RELEASE</version>
-        <relativePath/><!-- lookup parent from repository -->
+        <version>2.3.12.RELEASE</version> <!-- 这里是你的新版本 -->
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <properties>
@@ -26,12 +26,12 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
             <exclusions>
                 <exclusion>
-                    <groupId>org.springframework.data</groupId>
                     <artifactId>spring-data-redis</artifactId>
+                    <groupId>org.springframework.data</groupId>
                 </exclusion>
                 <exclusion>
-                    <groupId>io.lettuce</groupId>
                     <artifactId>lettuce-core</artifactId>
+                    <groupId>io.lettuce</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -57,6 +57,8 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+            <version>5.1.47</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -71,19 +73,19 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.5.2</version>
+            <version>3.4.3</version>
         </dependency>
         <!--hutool-->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>5.8.8</version>
+            <version>5.7.17</version>
         </dependency>
         <!--redisson-->
         <dependency>
             <groupId>org.redisson</groupId>
             <artifactId>redisson</artifactId>
-            <version>3.17.7</version>
+            <version>3.13.6</version>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>

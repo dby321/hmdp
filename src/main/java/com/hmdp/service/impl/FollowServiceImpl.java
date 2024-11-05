@@ -70,7 +70,7 @@ public class FollowServiceImpl extends ServiceImpl<FollowMapper, Follow> impleme
         //获取登陆用户
         Long id = UserHolder.getUser().getId();
         //查询是否关注
-        Long count = lambdaQuery()
+        Integer count = lambdaQuery()
                 .eq(Follow::getUserId, id)
                 .eq(Follow::getFollowUserId, followUserId)
                 .count();
