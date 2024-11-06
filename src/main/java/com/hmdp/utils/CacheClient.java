@@ -2,9 +2,9 @@ package com.hmdp.utils;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.BooleanUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.hmdp.entity.Shop;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +67,12 @@ public class CacheClient {
     /**
      * 设置空值解决缓存穿透
      *
+     * 预防缓存穿透的方法：
+     * 1. 可以增加ID复杂度，避免被猜测ID规律。
+     * 2. 做好数据的基础格式校验
+     * 3. 加强用户权限验证
+     * 4. 做好热点参数的限流
+     *
      * @param keyPrefix  关键前缀
      * @param id         id
      * @param type       类型
@@ -86,7 +92,7 @@ public class CacheClient {
         //从redis中查询
         String json = stringRedisTemplate.opsForValue().get(key);
         //判断是否存在
-        if (StringUtils.isNotBlank(json)) {
+        if (StrUtil.isNotBlank(json)) {
             //存在直接返回
             return JSONUtil.toBean(json, type);
         }
@@ -109,6 +115,56 @@ public class CacheClient {
     }
 
     /**
+     * 互斥锁解决缓存击穿
+     * @param keyPrefix
+     * @param id
+     * @param type
+     * @param dbFallback
+     * @param time
+     * @param timeUnit
+     * @return
+     * @param <R>
+     * @param <ID>
+     */
+    public <R, ID> R queryWithMutex(String keyPrefix, ID id, Class<R> type, Function<ID, R> dbFallback, Long time, TimeUnit timeUnit) {
+        //先从Redis中查，这里的常量值是固定的前缀 + 店铺id
+        String key = keyPrefix + id;
+        String json = stringRedisTemplate.opsForValue().get(key);
+        //如果不为空（查询到了），则转为Shop类型直接返回
+        if (StrUtil.isNotBlank(json)) {
+            return JSONUtil.toBean(json, type);
+        }
+        if (json != null) {
+            return null;
+        }
+        R r = null;
+        String lockKey = LOCK_SHOP_KEY + id;
+        try {
+            //否则去数据库中查
+            boolean flag = tryLock(lockKey);
+            if (!flag) {
+                Thread.sleep(50);
+                return queryWithMutex(keyPrefix, id, type, dbFallback, time, timeUnit);
+            }
+            r = dbFallback.apply(id);
+            //查不到，则将空值写入Redis
+            if (r == null) {
+                stringRedisTemplate.opsForValue().set(key, "", CACHE_NULL_TTL, TimeUnit.MINUTES);
+                return null;
+            }
+            //并存入redis，设置TTL
+            this.set(key, r, time, timeUnit);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } finally {
+           unLock(lockKey);
+        }
+        return r;
+    }
+
+
+
+    /**
      * 逻辑过期解决缓存击穿
      *
      * @param id id
@@ -124,7 +180,7 @@ public class CacheClient {
         //从redis中查询
         String json = stringRedisTemplate.opsForValue().get(key);
         //判断是否存在
-        if (StringUtils.isBlank(json)) {
+        if (StrUtil.isBlank(json)) {
             //不存在返回空
             return null;
         }

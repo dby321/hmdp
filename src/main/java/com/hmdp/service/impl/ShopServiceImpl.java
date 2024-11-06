@@ -45,12 +45,19 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
     @Override
     public Result queryById(Long id) {
         // 解决缓存穿透
-        Shop shop = cacheClient
-                .queryWithPassThrough(CACHE_SHOP_KEY, id, Shop.class, this::getById, CACHE_SHOP_TTL, TimeUnit.MINUTES);
+//        Shop shop = cacheClient
+//                .queryWithPassThrough(CACHE_SHOP_KEY, id, Shop.class, this::getById, CACHE_SHOP_TTL, TimeUnit.MINUTES);
 
+        // 解决缓存雪崩的方法
+        // 1. 在同一时刻加入很多缓存key时，可以给TTL加一个随机值，避免Key同时失效
+        // 2. redis集群提高服务可用性
+        // 3. 给缓存业务添加降级限流策略
+        // 4. 给业务添加多级缓存
+
+        // 热点Key过期问题
         // 互斥锁解决缓存击穿
-        // Shop shop = cacheClient
-        //         .queryWithMutex(CACHE_SHOP_KEY, id, Shop.class, this::getById, CACHE_SHOP_TTL, TimeUnit.MINUTES);
+         Shop shop = cacheClient
+                 .queryWithMutex(CACHE_SHOP_KEY, id, Shop.class, this::getById, CACHE_SHOP_TTL, TimeUnit.MINUTES);
 
         // 逻辑过期解决缓存击穿
         // Shop shop = cacheClient

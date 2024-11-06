@@ -2,7 +2,6 @@ package com.hmdp.utils;
 
 import cn.hutool.core.lang.UUID;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
@@ -12,7 +11,13 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 简单的redis分布式锁
+ * 缺点：
+ * 1. 不可重入
+ * 2. 不可重试
+ * 3. 不支持超时续期
+ * 4. 不能保证主从一致性
  *
+ * 解决方案：Redisson Java分布式工具集合
  * @author CHEN
  * @date 2022/10/09
  */

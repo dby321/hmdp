@@ -11,6 +11,12 @@ import java.time.format.DateTimeFormatter;
 /**
  * redis ID生成器
  *
+ * 1. 唯一性
+ * 2. 高可用
+ * 3. 高性能
+ * 4. 递增性
+ * 5. 安全性
+ *
  * @author CHEN
  * @date 2022/10/09
  */
