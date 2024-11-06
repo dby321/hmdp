@@ -1,0 +1,22 @@
+2024/11/06 15:38:33 [emerg] 8528#14692: CreateDirectory() "D:\idea_workspace\hmdp\nginx-1.18.0/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2024/11/06 15:39:08 [emerg] 9864#24648: CreateDirectory() "D:\idea_workspace\hmdp\nginx-1.18.0/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2024/11/06 15:39:59 [notice] 31412#36792: signal process started
+2024/11/06 15:39:59 [error] 31412#36792: OpenEvent("Global\ngx_reload_27472") failed (2: The system cannot find the file specified)
+2024/11/06 15:40:45 [notice] 7380#17440: signal process started
+2024/11/06 15:40:45 [error] 7380#17440: OpenEvent("Global\ngx_reload_27472") failed (2: The system cannot find the file specified)
+2024/11/06 15:41:05 [notice] 34724#15688: signal process started
+2024/11/06 15:41:05 [error] 34724#15688: OpenEvent("Global\ngx_reload_27472") failed (2: The system cannot find the file specified)
+2024/11/06 15:41:10 [emerg] 31652#8204: CreateDirectory() "D:\idea_workspace\hmdp\nginx-1.18.0/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2024/11/06 15:41:14 [notice] 17980#32064: signal process started
+2024/11/06 15:41:14 [error] 17980#32064: OpenEvent("Global\ngx_reload_27472") failed (2: The system cannot find the file specified)
+2024/11/06 15:42:14 [notice] 33432#30976: signal process started
+2024/11/06 15:42:14 [error] 33432#30976: OpenEvent("Global\ngx_reload_27472") failed (2: The system cannot find the file specified)
+2024/11/06 15:42:20 [emerg] 9576#19780: CreateDirectory() "D:\idea_workspace\hmdp\nginx-1.18.0/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2024/11/06 15:43:06 [notice] 33024#22420: signal process started
+2024/11/06 15:43:06 [error] 33024#22420: OpenEvent("Global\ngx_stop_27472") failed (2: The system cannot find the file specified)
+2024/11/06 15:43:20 [notice] 24108#27760: signal process started
+2024/11/06 15:43:20 [error] 24108#27760: OpenEvent("Global\ngx_quit_27472") failed (2: The system cannot find the file specified)
+2024/11/06 15:44:56 [emerg] 28812#25096: CreateDirectory() "D:\idea_workspace\hmdp\nginx-1.18.0/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2024/11/06 15:47:48 [emerg] 30332#19008: CreateDirectory() "D:\idea_workspace\hmdp\nginx-1.18.0/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2024/11/06 15:51:04 [emerg] 21784#23452: CreateDirectory() "D:\idea_workspace\hmdp\nginx-1.18.0/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2024/11/06 15:51:54 [emerg] 12408#24496: CreateDirectory() "D:\idea_workspace\hmdp\nginx-1.18.0/temp/client_body_temp" failed (3: The system cannot find the path specified)
